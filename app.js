@@ -8,12 +8,19 @@ let invadersId
 let isGoingRight = true
 let direction = 1
 let results = 0
+let end_game = false
+let walls = false
+
+// msgs
+const WIN_MSG = "YOU WIN"
+const LOSE_MSG = "YOU LOSE"
+const ESCAPE_MSG = "YOU ESCAPED!! True rebel 😎"
 
 // levels
 const levels = [900, 600, 400, 200, 50];
 const levelButtons = document.querySelectorAll(".level")
 levelButtons.forEach(b => b.addEventListener("click", () => setLevel(b)))
-let gameSpeed = levels[1];
+let gameSpeed = 1;
 
 // create grid
 for (let i = 0; i < width * width; i++) {
@@ -34,14 +41,16 @@ const alienInvaders = [
 draw()
 squares[currentShooterIndex].classList.add("shooter")
 document.addEventListener("keydown", moveShooter)
-invadersId = setInterval(moveInvaders, gameSpeed)
+invadersId = setInterval(moveInvaders, levels[gameSpeed])
 document.addEventListener('keydown', shoot)
 
 // functions
 function setLevel(button) {
-    gameSpeed = levels[button.dataset.level]
+    levelButtons[gameSpeed].classList.remove("selected")
+    gameSpeed = button.dataset.level
     clearInterval(invadersId)
-    invadersId = setInterval(moveInvaders, gameSpeed)
+    invadersId = setInterval(moveInvaders, levels[gameSpeed])
+    levelButtons[gameSpeed].classList.add("selected")
 }
 
 function draw() {
@@ -59,6 +68,7 @@ function remove() {
 }
 
 function moveShooter(e) {
+    let win = false
     squares[currentShooterIndex].classList.remove("shooter")
     switch (e.key) {
         case "ArrowLeft":
@@ -67,8 +77,24 @@ function moveShooter(e) {
         case "ArrowRight":
             if (currentShooterIndex % width < width - 1) currentShooterIndex += 1
             break
+        case "ArrowUp":
+            if (currentShooterIndex - width < 0)
+                win = true
+            else
+                currentShooterIndex -= width
+            break
+        case "ArrowDown":
+            if (currentShooterIndex + width >= width * width)
+                win = true
+            else
+                currentShooterIndex += width
+            break
     }
-    squares[currentShooterIndex].classList.add("shooter")
+    if (win) {
+        end(ESCAPE_MSG, true)
+    } else {
+        squares[currentShooterIndex].classList.add("shooter")
+    }
 }
 
 function moveInvaders() {
@@ -99,13 +125,11 @@ function moveInvaders() {
     draw()
 
     if (squares[currentShooterIndex].classList.contains("invader")) {
-        resultDisplay.innerHTML = "GAME OVER"
-        clearInterval(invadersId)
+        end(LOSE_MSG, false)
     }
 
     if (aliensRemoved.length === alienInvaders.length) {
-        resultDisplay.innerHTML = "YOU WIN"
-        clearInterval(invadersId)
+        end(WIN_MSG, true)
     }
 }
 
@@ -136,4 +160,19 @@ function shoot(e) {
     if (e.key === " ") {
         laserId = setInterval(moveLaser, 100)
     }
+}
+
+function end(msg, win)
+{
+    squares[currentShooterIndex].classList.remove("shooter")
+
+    end_game = true
+    setTimeout(() => alert(msg))
+    clearInterval(invadersId)
+    remove()
+
+    if (win)
+        grid.classList.add("win")
+    else
+        grid.classList.add("lose")
 }

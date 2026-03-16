@@ -1,9 +1,9 @@
 :root
 {
-	--text: white;
+	--text: #ffffff;
 	--bg: #111;
-	/* --panel: #1a1a1a; */
 	--panel: #333;
+	--accent: #00FF4D;
 	--border: solid #444 4px;
 	--game-size: 900px;
 	--game-elements-size: calc(var(--game-size) / 15);
@@ -98,8 +98,28 @@ body
 
 .level
 {
+	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 	padding: 8px;
 	font-weight: bold;
+}
+
+.selected
+{
+	background: var(--accent);
+}
+
+.win
+{
+	background: url("img/alien.png");
+	background-size: contain;
+	image-rendering: pixelated;
+}
+
+.lose
+{
+	background: url("img/invader.png");
+	background-size: contain;
+	image-rendering: pixelated;
 }

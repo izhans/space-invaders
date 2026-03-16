@@ -9,6 +9,12 @@ let isGoingRight = true
 let direction = 1
 let results = 0
 
+// levels
+const levels = [900, 600, 400, 200, 50];
+const levelButtons = document.querySelectorAll(".level")
+levelButtons.forEach(b => b.addEventListener("click", () => setLevel(b)))
+let gameSpeed = levels[1];
+
 // create grid
 for (let i = 0; i < width * width; i++) {
     const square = document.createElement("div")
@@ -28,10 +34,16 @@ const alienInvaders = [
 draw()
 squares[currentShooterIndex].classList.add("shooter")
 document.addEventListener("keydown", moveShooter)
-invadersId = setInterval(moveInvaders, 600)
+invadersId = setInterval(moveInvaders, gameSpeed)
 document.addEventListener('keydown', shoot)
 
 // functions
+function setLevel(button) {
+    gameSpeed = levels[button.dataset.level]
+    clearInterval(invadersId)
+    invadersId = setInterval(moveInvaders, gameSpeed)
+}
+
 function draw() {
     for (let i = 0; i < alienInvaders.length; i++) {
         if (!aliensRemoved.includes(i)) {

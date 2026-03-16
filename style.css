@@ -38,7 +38,7 @@ body
 	width: var(--game-size);
 	border: var(--border);
 	border-radius: 10px;
-	
+
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -48,21 +48,32 @@ body
 	height: var(--game-elements-size);
 }
 
-.invader {
-	background-color: purple;
-	border-radius: 10px;
+.invader
+{
+	background: url("img/invader.png");
+	background-size: contain;
+	image-rendering: pixelated;
 }
 
-.shooter {
-	background-color: green;
+.shooter
+{
+	background: url("img/alien.png");
+	background-size: contain;
+	image-rendering: pixelated;
 }
 
-.laser {
-	background-color: orange;
+.laser
+{
+	background: url("img/laser.png");
+	background-size: contain;
+	image-rendering: pixelated;
 }
 
-.boom {
-	background-color: red;
+.boom
+{
+	background: url("img/boom.png");
+	background-size: contain;
+	image-rendering: pixelated;
 }
 
 #side

@@ -1,3 +1,4 @@
+// vars
 const grid = document.querySelector(".grid")
 const resultDisplay = document.querySelector(".results")
 let currentShooterIndex = 202
@@ -8,6 +9,7 @@ let isGoingRight = true
 let direction = 1
 let results = 0
 
+// create grid
 for (let i = 0; i < width * width; i++) {
     const square = document.createElement("div")
     grid.appendChild(square)
@@ -22,6 +24,14 @@ const alienInvaders = [
     30, 31, 32, 33, 34, 35, 36, 37, 38, 39
 ]
 
+// game
+draw()
+squares[currentShooterIndex].classList.add("shooter")
+document.addEventListener("keydown", moveShooter)
+invadersId = setInterval(moveInvaders, 600)
+document.addEventListener('keydown', shoot)
+
+// functions
 function draw() {
     for (let i = 0; i < alienInvaders.length; i++) {
         if (!aliensRemoved.includes(i)) {
@@ -29,10 +39,6 @@ function draw() {
         }
     }
 }
-
-draw()
-
-squares[currentShooterIndex].classList.add("shooter")
 
 function remove() {
     for (let i = 0; i < alienInvaders.length; i++) {
@@ -52,8 +58,6 @@ function moveShooter(e) {
     }
     squares[currentShooterIndex].classList.add("shooter")
 }
-
-document.addEventListener("keydown", moveShooter)
 
 function moveInvaders() {
     const leftEdge = alienInvaders[0] % width === 0
@@ -93,8 +97,6 @@ function moveInvaders() {
     }
 }
 
-invadersId = setInterval(moveInvaders, 600)
-
 function shoot(e) {
     let laserId
     let currentLaserIndex = currentShooterIndex
@@ -123,5 +125,3 @@ function shoot(e) {
         laserId = setInterval(moveLaser, 100)
     }
 }
-
-document.addEventListener('keydown', shoot)

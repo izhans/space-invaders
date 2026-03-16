@@ -6,8 +6,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 class="results">0</h1>
-    <div class="grid"></div>
+   <div id="layout">
+
+        <div id="game">
+            <div class="grid"></div>
+        </div>
+
+        <div id="side">
+            <div id="points">
+                <h2>Points: <span class="results">0</span></h2>
+
+            </div>
+
+            <div id="levels">
+                <h2>Levels</h2>
+                <button class="level" data-level="0">Ez</button>
+                <button class="level" data-level="1">Normal</button>
+                <button class="level" data-level="2">Hard</button>
+                <button class="level" data-level="3">Harder</button>
+                <button class="level" data-level="4">Hell 💀</button>
+            </div>
+    
+            <div class="controls">
+                <h2>Controls</h2>
+                <p>⬅️ ➡️ - move</p>
+                <p>SPACE - shoot</p>
+                <p>??? - be rebel and discover more</p>
+            </div>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

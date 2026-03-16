@@ -1,14 +1,51 @@
+:root
+{
+	--text: white;
+	--bg: #111;
+	/* --panel: #1a1a1a; */
+	--panel: #333;
+	--border: solid #444 4px;
+	--game-size: 900px;
+	--game-elements-size: calc(var(--game-size) / 15);
+}
+
+body
+{
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background:var(--bg);
+	color:var(--text);
+}
+
+#layout
+{
+	height: 100vh;
+	display: grid;
+	grid: auto / auto auto;
+}
+
+#game
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .grid {
-	width: 300px;
-	height: 300px;
-	border: solid black 1px;
+	height: var(--game-size);
+	width: var(--game-size);
+	border: var(--border);
+	border-radius: 10px;
+	
 	display: flex;
 	flex-wrap: wrap;
 }
 
 .grid div {
-	width: 20px;
-	height: 20px;
+	width: var(--game-elements-size);
+	height: var(--game-elements-size);
 }
 
 .invader {
@@ -26,4 +63,32 @@
 
 .boom {
 	background-color: red;
+}
+
+#side
+{
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+}
+
+#side > div
+{
+	background: var(--panel);
+
+	margin: 20px;
+	padding: 16px;
+	border-radius: 10px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.level
+{
+	border-radius: 6px;
+	cursor: pointer;
+	padding: 8px;
+	font-weight: bold;
 }

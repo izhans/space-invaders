@@ -79,6 +79,8 @@ function processKey(e)
             return
 
         removeInvader(alienInvaders[n], false, null)
+    } else if (e.key == "w") {
+        walls = true
     } else
         moveShooter(e)
 }
@@ -88,10 +90,20 @@ function moveShooter(e) {
     squares[currentShooterIndex].classList.remove("shooter")
     switch (e.key) {
         case "ArrowLeft":
-            if (currentShooterIndex % width !== 0) currentShooterIndex -= 1
+            if (currentShooterIndex % width !== 0)
+                currentShooterIndex -= 1
+            else {
+                if (walls)
+                    currentShooterIndex += width -1
+            }
             break
         case "ArrowRight":
-            if (currentShooterIndex % width < width - 1) currentShooterIndex += 1
+            if (currentShooterIndex % width < width - 1)
+                currentShooterIndex += 1
+            else {
+                if (walls)
+                    currentShooterIndex -= width -1
+            }
             break
         case "ArrowUp":
             if (currentShooterIndex - width < 0)

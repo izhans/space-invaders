@@ -40,7 +40,7 @@ const alienInvaders = [
 // game
 draw()
 squares[currentShooterIndex].classList.add("shooter")
-document.addEventListener("keydown", moveShooter)
+document.addEventListener("keydown", processKey)
 invadersId = setInterval(moveInvaders, levels[gameSpeed])
 document.addEventListener('keydown', shoot)
 
@@ -65,6 +65,22 @@ function remove() {
     for (let i = 0; i < alienInvaders.length; i++) {
         squares[alienInvaders[i]].classList.remove("invader")
     }
+}
+
+function processKey(e)
+{
+    if (e.key == "+") {
+        results++
+        resultDisplay.innerHTML = results
+    } else if (e.key == "-") {
+        let n = Math.floor(Math.random() * 30) // random alien
+        
+        if (aliensRemoved.includes(n)) // if its killed, doesnt do anything
+            return
+
+        removeInvader(alienInvaders[n], false, null)
+    } else
+        moveShooter(e)
 }
 
 function moveShooter(e) {
@@ -143,23 +159,30 @@ function shoot(e) {
         squares[currentLaserIndex].classList.add("laser")
 
         if (squares[currentLaserIndex].classList.contains("invader")) {
-            squares[currentLaserIndex].classList.remove("laser")
-            squares[currentLaserIndex].classList.remove("invader")
-            squares[currentLaserIndex].classList.add("boom")
-
-            setTimeout(() => squares[currentLaserIndex].classList.remove("boom"), 300)
-            clearInterval(laserId)
-
-            const alienRemoved = alienInvaders.indexOf(currentLaserIndex)
-            aliensRemoved.push(alienRemoved)
-            results++
-            resultDisplay.innerHTML = results
+           removeInvader(currentLaserIndex, true, laserId)
         }
     }
 
     if (e.key === " ") {
         laserId = setInterval(moveLaser, 100)
     }
+}
+
+function removeInvader(currentLaserIndex, laser, laserId)
+{
+    if (laser)
+        squares[currentLaserIndex].classList.remove("laser")
+    squares[currentLaserIndex].classList.remove("invader")
+    squares[currentLaserIndex].classList.add("boom")
+
+    setTimeout(() => squares[currentLaserIndex].classList.remove("boom"), 300)
+    if (laser)
+        clearInterval(laserId)
+
+    const alienRemoved = alienInvaders.indexOf(currentLaserIndex)
+    aliensRemoved.push(alienRemoved)
+    results++
+    resultDisplay.innerHTML = results
 }
 
 function end(msg, win)

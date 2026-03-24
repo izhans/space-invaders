@@ -5,7 +5,7 @@
 	--panel: #333;
 	--accent: #00FF4D;
 	--border: solid #444 4px;
-	--game-size: 900px;
+	--game-size: 80vh;
 	--game-elements-size: calc(var(--game-size) / 15);
 }
 
@@ -81,6 +81,8 @@ body
 	display: flex;
 	flex-direction: column;
 	align-self: center;
+	max-height: 100vh;
+	overflow: scroll;
 }
 
 #side > div
@@ -94,6 +96,11 @@ body
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+}
+
+#side > h1
+{
+	margin: 20px;
 }
 
 .level
